@@ -1,5 +1,3 @@
-@props(['userprofile', 'count'])
-
 <div class="row">
     <div class="box flex-1 border-top-flat">
         <div class="box-body">
