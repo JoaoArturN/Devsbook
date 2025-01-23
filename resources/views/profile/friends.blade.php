@@ -3,7 +3,7 @@
 @section('content')
     <section class="feed">
 
-        <x-user-header-profile :userprofile="$userProfile" :check="$checkFollow" :count="$count"></x-user-header-profile>
+        <x-user-header-profile :userprofile="$userProfile" :checkfollow="$checkFollow" :count="$count"></x-user-header-profile>
 
 
 
@@ -26,208 +26,54 @@
                             <div class="tab-body" data-item="followers">
 
                                 <div class="full-friend-list">
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
 
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
+                                    @if ($userProfile->followers->count() == 0)
+                                        <div style="margin-left: 10px; width:300px">
+                                            Sem seguidores no momento
+                                        </div>
+                                    @endif
 
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
+                                    @foreach ($userProfile->followers as $followers)
+                                        <div class="friend-icon">
+                                            <a href="{{ route('renderperfil', ['id' => $followers->id]) }}">
+                                                <div class="friend-icon-avatar">
+                                                    <img src="media/avatars/avatar.jpg" />
+                                                </div>
+                                                <div class="friend-icon-name">
+                                                    {{ $followers->name }}
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
 
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
                                 </div>
 
                             </div>
                             <div class="tab-body" data-item="following">
 
                                 <div class="full-friend-list">
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
 
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
+                                    @if ($userProfile->following->count() == 0)
+                                        <div style="margin-left: 10px; width:300px">
 
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
+                                            {{ $userProfile->name }} ainda não segue ninguém
+                                        </div>
+                                    @endif
 
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
 
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
+                                    @foreach ($userProfile->following as $following)
+                                        <div class="friend-icon">
+                                            <a href="{{ route('renderperfil', ['id' => $following->id]) }}">
+                                                <div class="friend-icon-avatar">
+                                                    <img src="media/avatars/avatar.jpg" />
+                                                </div>
+                                                <div class="friend-icon-name">
+                                                    {{ $following->name }}
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
 
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="friend-icon">
-                                        <a href="">
-                                            <div class="friend-icon-avatar">
-                                                <img src="media/avatars/avatar.jpg" />
-                                            </div>
-                                            <div class="friend-icon-name">
-                                                Bonieky
-                                            </div>
-                                        </a>
-                                    </div>
                                 </div>
 
                             </div>

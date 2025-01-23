@@ -21,7 +21,10 @@ Route::middleware('auth')->group(function () {  // / se estiver logado {sitema d
     Route::get('/follow/{id}', [UserController::class, 'followuser'])->name('followuser');
     Route::get('/unfollow/{id}', [UserController::class, 'unfollowuser'])->name('unfollowuser');
 
-    Route::get('/friends/{id}', [UserController::class, 'renderfriends'])->name('renderfriends');
+    Route::get('/user/friends/{id}', [UserController::class, 'renderfriends'])->name('renderfriends');
+
+    Route::get('/user/photos/{id}', [UserController::class, 'renderphotos'])->name('renderphotos');
+    Route::get('/user/config', [UserController::class, 'renderconfig'])->name('renderconfig');
 });
 
 require __DIR__.'/auth.php';

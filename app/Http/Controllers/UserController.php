@@ -91,8 +91,31 @@ class UserController extends Controller
 
         $count = $this->calcUsers($id);
 
-        $users = $userProfile->following;
+        return view('profile.friends', ['userProfile' => $userProfile, 'checkFollow' => $checkFollow, 'count' => $count]);
+    }
 
-        return view('profile.friends', ['userProfile' => $userProfile, 'checkFollow' => $checkFollow, 'count' => $count, 'users' => $users]);
+    public function renderphotos($id)
+    {
+
+        $userProfile = User::with('detail', 'post.comment.user')->find($id);
+
+        if (! $userProfile) {
+            return redirect()->back()->with('error', 'User not found');
+        }
+
+        $checkFollow = Friend::where('follower_id', Auth::user()->id)->where('followed_id', $userProfile->id)->first();
+
+        $count = $this->calcUsers($id);
+
+        return view('profile.photos', ['userProfile' => $userProfile, 'checkFollow' => $checkFollow, 'count' => $count]);
+
+    }
+
+    public function renderconfig()
+    {
+
+        $userProfile = User::with('detail')->find(Auth::user()->id);
+
+        return view('profile.config', ['userProfile' => $userProfile]);
     }
 }

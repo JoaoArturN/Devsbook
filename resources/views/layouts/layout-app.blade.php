@@ -80,12 +80,12 @@
                             Amigos
                         </div>
                         <div class="menu-item-badge">
-                            33
+                            {{ $userProfile->followers->count() }}
                         </div>
                     </div>
                 </a>
-                <a href="">
-                    <div class="menu-item">
+                <a href="{{ route('renderphotos', ['id' => Auth::user()->id]) }}">
+                    <div class="menu-item {{ request()->routeIs('renderphotos') ? 'active' : '' }}">
                         <div class="menu-item-icon">
                             <img src="{{ asset('images/photo.png') }}" width="16" height="16" />
                         </div>
@@ -95,8 +95,8 @@
                     </div>
                 </a>
                 <div class="menu-splitter"></div>
-                <a href="">
-                    <div class="menu-item">
+                <a href="{{ route('renderconfig') }}">
+                    <div class="menu-item {{ request()->routeIs('renderconfig') ? 'active' : '' }}">
                         <div class="menu-item-icon">
                             <img src="{{ asset('images/settings.png') }}" width="16" height="16" />
                         </div>

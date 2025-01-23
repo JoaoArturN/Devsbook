@@ -39,7 +39,7 @@
                             <span>({{ $count['following'] }})</span>
                         </div>
                         <div class="box-header-buttons">
-                            <a href="">ver todos</a>
+                            <a href="{{ route('renderfriends', ['id' => $userProfile->id]) }}">ver todos</a>
                         </div>
                     </div>
                     <div class="box-body friend-list">
@@ -74,7 +74,7 @@
                             <span>(12)</span>
                         </div>
                         <div class="box-header-buttons">
-                            <a href="">ver todos</a>
+                            <a href="{{ route('renderphotos', ['id' => $userProfile->id]) }}">ver todos</a>
                         </div>
                     </div>
                     <div class="box-body row m-20">
@@ -131,9 +131,11 @@
                                     <br />
                                     <span class="fidi-date">{{ date('d-m-Y', strtotime($posts->created_at)) }}</span>
                                 </div>
-                                <div class="feed-item-head-btn">
-                                    <img src="{{ asset('images/more.png') }}" />
-                                </div>
+                                @if ($userProfile->id == Auth::user()->id)
+                                    <div class="feed-item-head-btn">
+                                        <img src="{{ asset('images/more.png') }}" />
+                                    </div>
+                                @endif
                             </div>
                             <div class="feed-item-body mt-10 m-width-20">
                                 {{ $posts->body }}

@@ -12,9 +12,13 @@
                     <br />
                     <span class="fidi-date">{{ date('d-m-Y', strtotime($post->created_at)) }}</span>
                 </div>
-                <div class="feed-item-head-btn">
-                    <img src="{{ asset('images/more.png') }}" />
-                </div>
+
+                @if ($post->user->id == Auth::user()->id)
+                    <div class="feed-item-head-btn">
+                        <img src="{{ asset('images/more.png') }}" />
+                    </div>
+                @endif
+
             </div>
             <div class="feed-item-body mt-10 m-width-20">
                 {{ $post->body }}
