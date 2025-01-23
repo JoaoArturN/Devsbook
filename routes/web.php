@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {  // / se estiver logado {sitema d
 
     Route::get('/user/photos/{id}', [UserController::class, 'renderphotos'])->name('renderphotos');
     Route::get('/user/config', [UserController::class, 'renderconfig'])->name('renderconfig');
+
+    Route::post('/user/edit', [UserController::class, 'edituser'])->name('edituser');
 });
 
 require __DIR__.'/auth.php';

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Friend;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -117,5 +118,29 @@ class UserController extends Controller
         $userProfile = User::with('detail')->find(Auth::user()->id);
 
         return view('profile.config', ['userProfile' => $userProfile]);
+    }
+
+    public function edituser(Request $request)
+    {
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'city' => 'required|string',
+            'work' => 'required',
+            'birthdate' => 'required|date',
+        ]);
+
+        $user = User::find(Auth::user()->id);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->detail->city = $request->city;
+        $user->detail->work = $request->work;
+        $user->detail->birthdate = $request->birthdate;
+        $user->save();
+        $user->detail->save();
+
+        return redirect()->route('renderconfig')->with('success', 'Você atualizou seus dados');
     }
 }
