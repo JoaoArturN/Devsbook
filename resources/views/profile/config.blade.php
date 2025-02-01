@@ -17,6 +17,19 @@
 
     <div style="margin:auto;">
 
+        <h1 style="margin-bottom: 10px; margin-top: 30px;">Alterar Imagens</h1>
+
+        <form method="POST" enctype="multipart/form-data" action="{{ route('changeimages') }}">
+            @csrf
+
+            <input type="file" placeholder="Digite sua senha" name="avatar"><br>
+            <input type="file" placeholder="Digite sua Nova Senha" name="banner"><br>
+
+            <button type="submit"
+                style="padding:10px 20px; border: none; background-color:#4A76A8; color:white; border-radius:4px; margin-bottom: 20px;">Enviar
+                Imagens</button>
+        </form>
+
 
         <h1 style="margin-bottom: 10px; margin-top: 30px;">Configurações</h1>
 
@@ -48,16 +61,34 @@
 
         <h1 style="margin-bottom: 10px; margin-top: 30px;">Alterar senha</h1>
 
-        <form method="POST">
+        <form method="POST" action="{{ route('changepassword') }}">
             @csrf
 
             <input type="password" placeholder="Digite sua senha" name="password"><br>
-            <input type="password" placeholder="Digite sua Nova Senha" name="new-password"><br>
+            <input type="password" placeholder="Digite sua Nova Senha" name="new_password"><br>
 
             <button type="submit"
                 style="padding:10px 20px; border: none; background-color:#4A76A8; color:white; border-radius:4px; margin-bottom: 20px;">Alterar
                 senha</button>
         </form>
+
+        @if ($errors->any())
+            <div
+                style="margin:auto; background-color: red; color: white; border: 1px solid black; width: 100%; padding: 4px;">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @if (session()->has('errorPassword'))
+            <div
+                style="margin:auto; background-color: red; color: white; border: 1px solid black; width: 100%; padding: 4px;">
+                {{ session()->get('errorPassword') }}
+            </div>
+        @endif
 
     </div>
 @endsection

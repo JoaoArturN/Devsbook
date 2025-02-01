@@ -27,6 +27,9 @@ Route::middleware('auth')->group(function () {  // / se estiver logado {sitema d
     Route::get('/user/config', [UserController::class, 'renderconfig'])->name('renderconfig');
 
     Route::post('/user/edit', [UserController::class, 'edituser'])->name('edituser');
+    Route::post('/user/edit/password', [UserController::class, 'changepassword'])->name('changepassword');
+    Route::post('/user/edit/images', [UserController::class, 'changeimages'])->name('changeimages');
+
 });
 
 require __DIR__.'/auth.php';

@@ -143,4 +143,49 @@ class UserController extends Controller
 
         return redirect()->route('renderconfig')->with('success', 'Você atualizou seus dados');
     }
+
+    public function changepassword(Request $request)
+    {
+        // Validação dos dados
+        $request->validate([
+            'password' => 'required|current_password',  // Verifica se a senha fornecida é a senha atual
+            'new_password' => 'required|min:8',  // Verifica a confirmação da nova senha
+        ]);
+
+        $user = User::find(Auth::user()->id); // Recupera o usuário logado de forma mais simples
+
+        // Atualiza a senha do usuário
+        $user->password = bcrypt($request->new_password);
+        $user->save();
+
+        return redirect()->route('renderconfig')->with('success', 'Você atualizou sua senha');
+    }
+
+    public function changeimages(Request $request)
+    {
+
+        $request->validate([
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $user = User::find(Auth::user()->id);
+
+        if ($request->hasFile('profile_image')) {
+            $profileImageName = time().'.'.$request->profile_image->extension();
+            $request->profile_image->move(public_path('images/profile'), $profileImageName);
+            $user->detail->profile_image = $profileImageName;
+        }
+
+        if ($request->hasFile('cover_image')) {
+            $coverImageName = time().'.'.$request->cover_image->extension();
+            $request->cover_image->move(public_path('images/cover'), $coverImageName);
+            $user->detail->cover_image = $coverImageName;
+        }
+
+        $user->detail->save();
+
+        return redirect()->route('renderconfig')->with('success', 'Você atualizou suas imagens');
+
+    }
 }
